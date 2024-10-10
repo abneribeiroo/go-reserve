@@ -8,7 +8,7 @@ import (
 	"go-reserve/internal/models"
 )
 
-// CreateEquipment cria um novo equipamento
+
 func CreateEquipment(c *gin.Context) {
 	var equipment models.Equipment
 	if err := c.BindJSON(&equipment); err != nil {
