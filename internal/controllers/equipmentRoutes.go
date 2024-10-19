@@ -29,10 +29,10 @@ func CreateEquipment(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "Equipment created"})
 }
 
-// GetAllEquipment retorna todos os equipamentos
+
 func GetAllEquipment(c *gin.Context) {
-	// Recupera a conexão do banco de dados do contexto
-	dbService := c.MustGet("db").(database.Service) // Aqui você pega a instância da interface
+	
+	dbService := c.MustGet("db").(database.Service) 
 	db := dbService.GetDB()
 
 	equipmentList, err := models.GetAllEquipment(db)
