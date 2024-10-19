@@ -130,9 +130,9 @@ func GetUserById(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-// UpdateUser atualiza um usuário pelo ID
+
 func UpdateUser(c *gin.Context) {
-	userId, err := strconv.Atoi(c.Param("id"))
+	userId, err := strconv.Atoi(c.Param("userId"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
 		return
@@ -159,7 +159,7 @@ func UpdateUser(c *gin.Context) {
 
 // DeleteUser deleta um usuário pelo ID
 func DeleteUser(c *gin.Context) {
-	userId, err := strconv.Atoi(c.Param("id"))
+	userId, err := strconv.Atoi(c.Param("userId"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
 		return
