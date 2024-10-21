@@ -22,7 +22,6 @@ func CreateUser(c *gin.Context) {
 	
 	dbService := c.MustGet("db").(database.Service) 
 	db := dbService.GetDB()
-
 	
 	existingUser, _ := models.GetUserByEmail(db, user.Email)
 	if existingUser != nil {
