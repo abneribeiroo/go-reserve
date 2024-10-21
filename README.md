@@ -1,6 +1,25 @@
-# Project go-reserve
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![GitHub Repo stars](https://img.shields.io/github/stars/abneribeiroo/go-reserve)
 
-Go-reserve is an equipment reservation management system where users can register, log in, and reserve available equipment. The system allows administrators to manage equipment and reservations, providing an efficient platform for resource utilization.
+<div>
+    <h3 align="center">Go-reserve API</h3>
+    <p align="center">The system allows administrators to manage equipment and reservations, providing an efficient platform for resource utilization.
+    </p>
+    <p align="center">Reserving and renting equipment has never been easier.    
+    <br />
+    <br />
+    <a href="https://github.com/abneribeiroo/go-reserve/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    ·
+    <a href="https://github.com/abneribeiroo/go-reserve/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+    </p>
+</div>
+
+
+
 
 ## Getting Started
 
@@ -108,5 +127,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have questions or feedback, feel free to reach out:
 
-- [GitHub](https://github.com/yourusername)
+- [GitHub](https://github.com/abneribeiroo)
+- [Twitter](https://x.com/heisptol)
 
