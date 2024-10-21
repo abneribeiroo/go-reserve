@@ -5,18 +5,18 @@ import (
 	"errors"
 	"time"
 
-	"golang.org/x/crypto/bcrypt"
 	"github.com/dgrijalva/jwt-go"
+	"golang.org/x/crypto/bcrypt"
 	"os"
+	
 )
-
 
 type User struct {
 	ID        int       `json:"id"`
 	Username  string    `json:"username"`
 	Email     string    `json:"email"`
 	Password  string    `json:"password"`
-	Role      string    `json:"role"`  // 'user' or 'admin'
+	Role      string    `json:"role"` // 'user' or 'admin'
 	CreatedAt time.Time `json:"created_at"`
 }
 
@@ -30,12 +30,10 @@ func (u *User) HashPassword() error {
 	return nil
 }
 
-
 func (u *User) ComparePassword(password string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password))
 	return err == nil
 }
-
 
 func (u *User) GenerateJWT() (string, error) {
 	claims := jwt.MapClaims{
@@ -50,6 +48,25 @@ func (u *User) GenerateJWT() (string, error) {
 	return token.SignedString([]byte(secretKey))
 }
 
+func ValidateToken(db *sql.DB, tokenString string) (*User, error) {
+	claims := jwt.MapClaims{}
+	token, err := jwt.ParseWithClaims(tokenString, &claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte(os.Getenv("SECRET_KEY")), nil
+	})
+
+	if err != nil || !token.Valid {
+		return nil, errors.New("invalid token")
+	}
+
+	
+	userId := int(claims["userId"].(float64)) 
+	user, err := GetUserById(db, userId)      
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
 
 func (u *User) Create(db *sql.DB) error {
 	u.CreatedAt = time.Now()
@@ -58,7 +75,6 @@ func (u *User) Create(db *sql.DB) error {
 		u.Username, u.Email, u.Password, u.Role, u.CreatedAt)
 	return err
 }
-
 
 func GetAllUsers(db *sql.DB) ([]User, error) {
 	rows, err := db.Query("SELECT id, username, email, role, created_at FROM users")
@@ -78,7 +94,6 @@ func GetAllUsers(db *sql.DB) ([]User, error) {
 	return users, nil
 }
 
-
 func GetUserByEmail(db *sql.DB, email string) (*User, error) {
 	var user User
 	err := db.QueryRow("SELECT id, username, email, password, role, created_at FROM users WHERE email = $1", email).Scan(
@@ -89,7 +104,6 @@ func GetUserByEmail(db *sql.DB, email string) (*User, error) {
 	return &user, nil
 }
 
-
 func GetUserById(db *sql.DB, id int) (*User, error) {
 	var user User
 	err := db.QueryRow("SELECT id, username, email, role, created_at FROM users WHERE id = $1", id).Scan(
@@ -99,7 +113,6 @@ func GetUserById(db *sql.DB, id int) (*User, error) {
 	}
 	return &user, nil
 }
-
 
 func (u *User) Update(db *sql.DB) error {
 	_, err := db.Exec("UPDATE users SET username = $1, email = $2, role = $3 WHERE id = $4",
