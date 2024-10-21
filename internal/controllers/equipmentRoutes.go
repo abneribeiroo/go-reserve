@@ -1,11 +1,13 @@
 package controllers
 
 import (
-	"net/http"
-	"strconv"
-	"github.com/gin-gonic/gin"
 	"go-reserve/internal/database"
 	"go-reserve/internal/models"
+	"log"
+	"net/http"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 
@@ -16,6 +18,10 @@ func CreateEquipment(c *gin.Context) {
 		return
 	}
 
+	userId, _ := c.Get("userId")
+	log.Println("Id do usuario",userId)
+
+	equipment.OwnerID = userId.(int)
 	
 	dbService := c.MustGet("db").(database.Service) 
 	db := dbService.GetDB()
@@ -46,14 +52,14 @@ func GetAllEquipment(c *gin.Context) {
 
 // GetEquipmentById retorna um equipamento pelo ID
 func GetEquipmentById(c *gin.Context) {
-	equipmentId, err := strconv.Atoi(c.Param("id"))
+	equipmentId, err := strconv.Atoi(c.Param("equipmentId"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid equipment ID"})
 		return
 	}
 
 	// Recupera a conexão do banco de dados do contexto
-	dbService := c.MustGet("db").(database.Service) // Aqui você pega a instância da interface
+	dbService := c.MustGet("db").(database.Service) 
 	db := dbService.GetDB()
 
 	equipment, err := models.GetEquipmentById(db, equipmentId)
@@ -67,7 +73,7 @@ func GetEquipmentById(c *gin.Context) {
 
 // UpdateEquipment atualiza um equipamento pelo ID
 func UpdateEquipment(c *gin.Context) {
-	equipmentId, err := strconv.Atoi(c.Param("id"))
+	equipmentId, err := strconv.Atoi(c.Param("equipmentId"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid equipment ID"})
 		return
@@ -95,7 +101,7 @@ func UpdateEquipment(c *gin.Context) {
 
 // DeleteEquipment deleta um equipamento pelo ID
 func DeleteEquipment(c *gin.Context) {
-	equipmentId, err := strconv.Atoi(c.Param("id"))
+	equipmentId, err := strconv.Atoi(c.Param("equipmentId"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid equipment ID"})
 		return
