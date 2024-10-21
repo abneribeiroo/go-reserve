@@ -3,9 +3,10 @@ package server
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"go-reserve/internal/controllers"
-	
+	"go-reserve/internal/middlewares"
+
+	"github.com/gin-gonic/gin"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {
@@ -46,7 +47,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 		// 	userReservationRoutes.DELETE("/:reservationId", controllers.DeleteReservation) 
 		// }
 
-		equipmentRoutes := api.Group("/equipments")
+		equipmentRoutes := api.Group("/equipments").Use(middlewares.AuthorizeUserMiddleware())
 		{
 			equipmentRoutes.POST("/", controllers.CreateEquipment)
 			equipmentRoutes.GET("/", controllers.GetAllEquipment)
