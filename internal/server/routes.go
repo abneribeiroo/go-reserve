@@ -37,14 +37,14 @@ func (s *Server) RegisterRoutes() http.Handler {
 			userRoutes.DELETE("/:userId", controllers.DeleteUser)
 		}
 
-		// userReservationRoutes := userRoutes.Group("/:userId/reservations")
-		// {
-		// 	userReservationRoutes.POST("/", controllers.CreateReservation)             
-		// 	userReservationRoutes.GET("/", controllers.GetAllReservationsForUser)        
-		// 	userReservationRoutes.GET("/:reservationId", controllers.GetReservationById)  
-		// 	userReservationRoutes.PUT("/:reservationId", controllers.UpdateReservation)  
-		// 	userReservationRoutes.DELETE("/:reservationId", controllers.DeleteReservation) 
-		// }
+		userReservationRoutes := userRoutes.Group("/:userId/reservations")
+		{
+			userReservationRoutes.POST("/", controllers.CreateReservation)             
+			// userReservationRoutes.GET("/", controllers.GetAllReservationsForUser)        
+			// userReservationRoutes.GET("/:reservationId", controllers.GetReservationById)  
+			// userReservationRoutes.PUT("/:reservationId", controllers.UpdateReservation)  
+			// userReservationRoutes.DELETE("/:reservationId", controllers.DeleteReservation) 
+		}
 
 		equipmentRoutes := api.Group("/equipments").Use(middlewares.AuthorizeUserMiddleware())
 		{
