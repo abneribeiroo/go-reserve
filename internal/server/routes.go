@@ -21,7 +21,6 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	r.GET("/health", s.healthHandler)
 
-	// Prefixo API v1
 	api := r.Group("/api/v1")
 	{
 		authRoutes := api.Group("/auth")

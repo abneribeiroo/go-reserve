@@ -13,6 +13,7 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 )
 
+
 // Service represents a service that interacts with a database.
 type Service interface {
 	// Health returns a map of health status information.

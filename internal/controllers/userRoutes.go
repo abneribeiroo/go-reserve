@@ -19,7 +19,6 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	
 	dbService := c.MustGet("db").(database.Service) 
 	db := dbService.GetDB()
 	
@@ -29,7 +28,6 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	
 	if err := user.HashPassword(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
 		return
@@ -46,8 +44,8 @@ func CreateUser(c *gin.Context) {
 }
 
 func GetAllUsers(c *gin.Context) {
-	// Recupera a conexão do banco de dados do contexto
-	dbService := c.MustGet("db").(database.Service) // Aqui você pega a instância da interface
+	
+	dbService := c.MustGet("db").(database.Service) 
 	db := dbService.GetDB()
 
 	users, err := models.GetAllUsers(db)
@@ -64,7 +62,7 @@ func GetAllUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, users)
 }
 
-// Login autentica um usuário
+
 func Login(c *gin.Context) {
 	var loginData struct {
 		Email    string `json:"email"`
@@ -75,8 +73,8 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	// Recupera a conexão do banco de dados do contexto
-	dbService := c.MustGet("db").(database.Service) // Aqui você pega a instância da interface
+	
+	dbService := c.MustGet("db").(database.Service) 
 	db := dbService.GetDB()
 
 	user, err := models.GetUserByEmail(db, loginData.Email)
@@ -100,7 +98,7 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"token": token})
 }
 
-// GetUserById retorna um usuário pelo ID
+
 func GetUserById(c *gin.Context) {
 	userIdParam := c.Param("userId")
     if userIdParam == "" {
@@ -116,8 +114,8 @@ func GetUserById(c *gin.Context) {
         return
     }
 
-	// Recupera a conexão do banco de dados do contexto
-	dbService := c.MustGet("db").(database.Service) // Aqui você pega a instância da interface
+
+	dbService := c.MustGet("db").(database.Service) 
 	db := dbService.GetDB()
 
 	user, err := models.GetUserById(db, userId)
