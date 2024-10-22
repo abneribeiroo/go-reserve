@@ -1,7 +1,7 @@
 
 <div>
     <h3 align="center">Go-reserve API</h3>
-    <p align="center">The system allows administrators to manage equipment and reservations, providing an efficient platform for resource utilization. <br /> 
+    <p align="center">Use this API to make equipment reservations securely and easily <br /> 
     Reserving and renting equipment has never been easier.
     </p>
     <p align="center">    
