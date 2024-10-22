@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-
 	"go-reserve/internal/database"
 	"go-reserve/internal/models"
 
@@ -72,7 +71,6 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 		return
 	}
-
 	
 	dbService := c.MustGet("db").(database.Service) 
 	db := dbService.GetDB()
